@@ -1,0 +1,24 @@
+{
+  "name": "backpack-ftp",
+  "version": "0.0.1",
+  "description": "Backpack.io FTP server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://git.soulman.kz/backback/backpack-ftp.git"
+  },
+  "keywords": [
+    "backpack",
+    "ftp",
+    "ftp",
+    "server"
+  ],
+  "author": "Maxim Savin <soulman.is.good@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "~2.2.0"
+  }
+}
