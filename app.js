@@ -1,6 +1,6 @@
 "use strict";
 
-var host = '0.0.0.0';
+var host = '127.0.0.1';
 
 var Server = require('./lib/server'),
     server = new Server(host);
