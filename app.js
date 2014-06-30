@@ -36,7 +36,7 @@ var isDev = process.env.NODE_ENV !== 'production',
 }(console));
 
 
-var host = '127.0.0.1',
+var host = '0.0.0.0',
   port = 21,
   Server = require('./lib/server'),
   server = new Server(host);
