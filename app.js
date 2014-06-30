@@ -36,9 +36,11 @@ var isDev = process.env.NODE_ENV !== 'production',
 }(console));
 
 
-var host = '127.0.0.1';
-
-var Server = require('./lib/server'),
+var host = '127.0.0.1',
+  port = 21,
+  Server = require('./lib/server'),
   server = new Server(host);
 
-server.listen(21, host);
+server.listen(port, host, function () {
+  console.log("FTP Sever started on ", host + ":" + port);
+});
