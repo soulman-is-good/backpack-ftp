@@ -4,7 +4,9 @@
   "description": "Backpack.io FTP server",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./scripts/ftp-server start",
+    "stop": "./scripts/ftp-server stop"
   },
   "repository": {
     "type": "git",
@@ -13,8 +15,7 @@
   "keywords": [
     "backpack",
     "ftp",
-    "ftp",
-    "server"
+    "ftp server"
   ],
   "author": "Maxim Savin <soulman.is.good@gmail.com>",
   "license": "ISC",

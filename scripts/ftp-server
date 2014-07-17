@@ -1,0 +1,80 @@
+#!/usr/bin/env node
+var FILE = "app.js";
+var DIR = "/root/backpack-ftp/";
+var LOG_DIR = "/var/log/backpack/";
+var COMMON_LOG = "ftp-server.log";
+var ERROR_LOG = "ftp-server.log";
+var LOCK_FILE = "/var/run/ftp-server.pid";
+
+var child_process = require('child_process');
+var spawn = child_process.spawn;
+var exec = child_process.exec;
+var fs = require('fs');
+
+var command = (process.argv[2] || "").toLowerCase();
+switch (command) {
+  case "start":
+    start();
+    break;
+  case "stop":
+    stop();
+    break;
+  case "restart":
+    stop();
+    start();
+    break;
+  case "status":
+    status();
+    break;
+  default:
+    console.log("Use start|stop|restart|status");
+    break;
+}
+process.exit();
+
+function start () {
+  function run () {
+    var fd1 = fs.openSync(LOG_DIR + COMMON_LOG, 'a');
+    var fd2 = fs.openSync(LOG_DIR + ERROR_LOG, 'a');
+    var child = spawn("node", [DIR + FILE], {stdio: ['pipe', fd1, fd2], detached: true});
+    fs.writeFileSync(LOCK_FILE, child.pid);
+    child.unref();
+  }
+  if (fs.existsSync(LOCK_FILE)) {
+    var pid = parseInt(fs.readFileSync(LOCK_FILE));
+    exec('kill -0 ' + pid, function (err, out) {
+      if (!err) {
+        console.log("Process already running");
+      } else {
+        run();
+      }
+    });
+  } else {
+    run();
+  }
+}
+function stop () {
+  if (fs.existsSync(LOCK_FILE)) {
+    var pid = parseInt(fs.readFileSync(LOCK_FILE));
+    fs.unlinkSync(LOCK_FILE);
+    if (!isNaN(pid)) {
+      spawn('kill', [pid], {detached: true, stdio: ['pipe', null, null]}).unref();
+    }
+  } else {
+    console.log("Could not find lock file!");
+  }
+}
+function status () {
+  if (fs.existsSync(LOCK_FILE)) {
+    var pid = parseInt(fs.readFileSync(LOCK_FILE));
+    exec('kill -0 ' + pid, function (err, out) {
+      if (!err) {
+        console.log("Process is running pid", pid);
+      } else {
+        console.log("Process is not running");
+      }
+    });
+  } else {
+    console.log("Lock file not found. Don't know for sure.");
+  }
+}
