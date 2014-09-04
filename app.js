@@ -1,8 +1,10 @@
 "use strict";
 
-var isDev = process.env.NODE_ENV !== 'production',
-  util = require('util');
-
+var isDev = process.env.NODE_ENV !== 'production'
+  , util = require('util')
+  , host = (process.argv[2] || '0.0.0.0:21').split(':')
+  , port = host.length>1?parseInt(host.pop()):21;
+host = host.pop();
 /**
  * Overload original console logging
  * @param {console} console
@@ -35,10 +37,7 @@ var isDev = process.env.NODE_ENV !== 'production',
   };
 }(console));
 
-
-var host = '0.0.0.0',
-  port = 21,
-  Server = require('./lib/server'),
+var Server = require('./lib/server'),
   server = new Server(host);
 
 server.listen(port, host, function () {
