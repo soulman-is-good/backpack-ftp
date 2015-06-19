@@ -1,11 +1,12 @@
 "use strict";
 
 var cluster = require('cluster');
+var os = require('os');
 
 cluster.setupMaster({exec:
   __dirname + '/app.js'});
 
-for (var i = 0; i < 4; i++) {
+for (var i = 0; i < os.cpus().length; i++) {
   cluster.fork();
 }
 
