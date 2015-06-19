@@ -20,7 +20,7 @@
   "author": "Maxim Savin <soulman.is.good@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "mysql": "~2.2.0",
-    "iconv": "~2.1.0"
+    "iconv": "^2.1.8",
+    "mysql": "^2.2.0"
   }
 }
