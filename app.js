@@ -2,8 +2,8 @@
 
 var isDev = process.env.NODE_ENV !== 'production'
   , util = require('util')
-  , host = (process.argv[2] || '0.0.0.0:21').split(':')
-  , port = host.length>1?parseInt(host.pop()):21;
+  , host = (process.env.BP_FTP_HOST || '0.0.0.0:21').split(':')
+  , port = parseInt(host[1]) || 21;
 host = host.pop();
 /**
  * Overload original console logging
