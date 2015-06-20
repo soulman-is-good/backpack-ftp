@@ -13,13 +13,6 @@ host = host[0];
  */
 (function (console) {
 
-  function parseDate () {
-    var D = new Date(),
-      date;
-    date = D.toLocaleString();
-    return date.replace(/ GMT.+/, '') + "." + D.getMilliseconds();
-  }
-
   //console.info only development
   console.info = function () {
     if (isDev) {
