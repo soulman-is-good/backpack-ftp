@@ -1,5 +1,6 @@
 "use strict";
 
+var parseDate = require('./lib/parseDate');
 var isDev = process.env.NODE_ENV !== 'production'
   , util = require('util')
   , host = (process.env.BP_FTP_HOST || '0.0.0.0:21').split(':')
